@@ -3,9 +3,25 @@ const addBtn = document.getElementById('add-btn');
 const texto = document.querySelector('input');
 let tareas = [];
 
+
+
 addBtn.addEventListener('click', () => {
     crearTarea();    
 })
+
+ul.addEventListener('change', (e) => {
+    if(e.target.matches('input[type="checkbox"]')){
+        const p = e.target.parentElement.querySelector('p');
+
+        if(e.target.checked){   
+            p.style.textDecoration = 'line-through';
+            console.log('Elemento tachado: ', p.textContent);
+        }
+        else{
+            p.style.textDecoration = 'none';
+        }
+    }
+});
 
 
 function crearTarea(){
@@ -22,7 +38,21 @@ function crearTarea(){
         li.appendChild(checkbox);
         li.appendChild(p);
         li.appendChild(img);
-        tareas.push(texto.value);
         texto.value = '';
+        
+        
+        let nuevaTarea = {
+            id: tareas.length,
+            texto: texto.value,
+            estado: false
+        };
+        
+        tareas.push(nuevaTarea);
+        guardarTareas();
     }
+
+}
+
+function guardarTareas(){
+    localStorage.setItem('tareas', JSON.stringify(tareas));
 }
