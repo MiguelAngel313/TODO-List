@@ -1,12 +1,15 @@
 const ul = document.querySelector('ul');
 const addBtn = document.getElementById('add-btn');
 const texto = document.querySelector('input');
-let tareas = [];
+const img = document.createElement('img');
+img.src = 'trash.svg'
+let tareas = recuperarTareas();
 
 
 
 addBtn.addEventListener('click', () => {
     crearTarea();    
+    cargarTareas();
 })
 
 ul.addEventListener('change', (e) => {
@@ -28,8 +31,6 @@ function crearTarea(){
     const li = document.createElement('li');
     const p = document.createElement('p');
     const checkbox = document.createElement('input');
-    const img = document.createElement('img');
-    img.src = 'trash.svg'
     checkbox.type = 'checkbox';
 
     if(texto.value){
@@ -38,21 +39,38 @@ function crearTarea(){
         li.appendChild(checkbox);
         li.appendChild(p);
         li.appendChild(img);
-        texto.value = '';
         
         
         let nuevaTarea = {
             id: tareas.length,
-            texto: texto.value,
+            parrafo: texto.value,
             estado: false
         };
         
         tareas.push(nuevaTarea);
         guardarTareas();
+        texto.value = '';
     }
 
 }
 
 function guardarTareas(){
     localStorage.setItem('tareas', JSON.stringify(tareas));
+}
+
+function recuperarTareas(){
+    let datosGuardados = localStorage.getItem('tareas');
+    return datosGuardados ? JSON.parse(datosGuardados) : [];
+}
+
+function cargarTareas(){
+    let li = document.createElement('li');
+    let checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    let p = document.createElement('p');
+
+    //Continuar agregando todos los atributos al dom al cargar la pagina para mostrarlos.
+    for (const tarea of tareas) {
+        console.log('Tareas value: ', tarea.parrafo);
+    }
 }
