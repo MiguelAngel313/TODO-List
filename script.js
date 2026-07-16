@@ -1,24 +1,28 @@
+//Elementos que ya existen en el DOM
 const ul = document.querySelector('ul');
 const addBtn = document.getElementById('add-btn');
 const texto = document.querySelector('input');
-const img = document.createElement('img');
-img.src = 'trash.svg'
+//Crear el array de tareas en caso de que haya alguna guardada en localStorage
 let tareas = recuperarTareas();
 cargarTareas();
 
-        //Prueba de tareas
-        console.log('Prueba de tareas: ', tareas);
+const eliminar = recolectarBotones();
 
-//TODO: Eliminar esta parte cuando termine el programa
-//localStorage.clear();
 
 
 //Evento para crear tareas con el boton Add
 addBtn.addEventListener('click', () => {
     crearTarea();
-})
+});
 
-//Evento para controlar si se agrega una tarea al DOM
+//Envento para crear tareas con el boton Enter
+document.addEventListener('keydown', (event) => {
+    if(event.key === 'Enter'){
+        crearTarea();
+    }
+});
+
+//Evento para controlar si se marca una tarea del DOM
 ul.addEventListener('change', (e) => {
     if(e.target.matches('input[type="checkbox"]')){
         const p = e.target.parentElement.querySelector('p');
@@ -34,12 +38,18 @@ ul.addEventListener('change', (e) => {
 });
 
 
+
+
 function crearTarea(){
+    //Crear elementos antes de agregarlos al DOM
     const li = document.createElement('li');
     const p = document.createElement('p');
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
+    const img = document.createElement('img');
+    img.src = 'trash.svg'
 
+    //Agregar elementos al DOM si el input no esta vacio.
     if(texto.value){
         p.textContent = texto.value;
         ul.appendChild(li);
@@ -65,14 +75,13 @@ function guardarTareas(){
     localStorage.setItem('tareas', JSON.stringify(tareas));
 }
 
-//Funcion sin uso por el momento
+//Funcion para recuperar las tareas y cargarlas en el array tareas
 function recuperarTareas(){
     let datosGuardados = localStorage.getItem('tareas');
     return datosGuardados ? JSON.parse(datosGuardados) : [];
 }
 
 function cargarTareas(){
-    //Continuar agregando todos los atributos al dom al cargar la pagina para mostrarlos.
     for (const tarea of tareas) {
 
     let li = document.createElement('li');
@@ -90,3 +99,10 @@ function cargarTareas(){
         li.appendChild(img);
     }
 }
+
+function recolectarBotones(){
+    return document.querySelectorAll('img');
+}
+
+//TODO: Crear funcion para recorrer todas las imagenes y eliminar
+//el parent element de la que haya sido clicada
