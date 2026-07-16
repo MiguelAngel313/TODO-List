@@ -104,5 +104,10 @@ function recolectarBotones(){
     return document.querySelectorAll('img');
 }
 
-//TODO: Crear funcion para recorrer todas las imagenes y eliminar
-//el parent element de la que haya sido clicada
+//TODO: Modificar array y localstorage para que guarden la nueva lista de tareas
+
+eliminar.forEach(imagen => {
+    imagen.addEventListener('click', () => {
+        imagen.parentElement.remove();
+    });
+});
