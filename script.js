@@ -108,6 +108,7 @@ function recolectarBotones(){
 
 eliminar.forEach(imagen => {
     imagen.addEventListener('click', () => {
-        imagen.parentElement.remove();
+        let li = imagen.parentElement;
+        li.remove();
     });
 });
