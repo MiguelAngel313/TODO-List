@@ -105,10 +105,15 @@ function recolectarBotones(){
 }
 
 //TODO: Modificar array y localstorage para que guarden la nueva lista de tareas
+//Solucionar problema que hace que la variable indice continue incrementando en vez de reasignarse su nuevo valor en funcion de la imagen.
 
-eliminar.forEach(imagen => {
+eliminar.forEach((imagen, indice) => {
     imagen.addEventListener('click', () => {
+        console.log('Indice: ', indice);
         let li = imagen.parentElement;
         li.remove();
+        //Eliminar tarea de array en funcion de su indice.
+        tareas.splice(indice, 1);
+        console.log('Tareas: ', tareas);
     });
 });
