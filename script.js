@@ -37,6 +37,21 @@ ul.addEventListener('change', (e) => {
     }
 });
 
+//!!!Modificar el dataset para que al eleminiar una tarea se modifique este tambnien y concuerde con la longitud del array
+
+//Evento para controlar si se elimina una tarea
+ul.addEventListener('click', (e) => {
+    if(e.target.matches('img')){
+        console.log('Se ha clicado la imagen: ', e.target);
+        let li = e.target.parentElement;
+        console.log('Id del dataset de la tarea:', li.dataset.id);
+        tareas.splice(li.dataset.id, 1);
+        guardarTareas();
+        console.log('Tareas: ', tareas);
+        li.remove();
+    }
+});
+
 
 
 
@@ -82,8 +97,9 @@ function recuperarTareas(){
 }
 
 function cargarTareas(){
-    for (const tarea of tareas) {
 
+    for (const tarea of tareas) {
+    //Crerar los elementos para el DOM
     let li = document.createElement('li');
     let checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
@@ -91,12 +107,15 @@ function cargarTareas(){
     let img = document.createElement('img');
     img.src = 'trash.svg'
 
-        console.log('Tareas value: ', tarea.parrafo);
-        p.textContent = tarea.parrafo;
-        ul.appendChild(li);
-        li.appendChild(checkbox);
-        li.appendChild(p);
-        li.appendChild(img);
+    //Agregar un dataset a cada li
+    li.dataset.id = tarea.id;
+
+    //Agregar los elementos al DOM para mostrarlos
+    p.textContent = tarea.parrafo;
+    ul.appendChild(li);
+    li.appendChild(checkbox);
+    li.appendChild(p);
+    li.appendChild(img);
     }
 }
 
@@ -109,11 +128,7 @@ function recolectarBotones(){
 
 eliminar.forEach((imagen, indice) => {
     imagen.addEventListener('click', () => {
-        console.log('Indice: ', indice);
-        let li = imagen.parentElement;
-        li.remove();
-        //Eliminar tarea de array en funcion de su indice.
+
         tareas.splice(indice, 1);
-        console.log('Tareas: ', tareas);
     });
 });
