@@ -6,8 +6,6 @@ const texto = document.querySelector('input');
 let tareas = recuperarTareas();
 cargarTareas();
 
-const eliminar = recolectarBotones();
-
 
 
 //Evento para crear tareas con el boton Add
@@ -37,18 +35,25 @@ ul.addEventListener('change', (e) => {
     }
 });
 
-//!!!Modificar el dataset para que al eleminiar una tarea se modifique este tambnien y concuerde con la longitud del array
+//!!!Modificar el dataset para que al eleminiar una tarea se modifique este tambien y concuerde con la longitud del array
 
 //Evento para controlar si se elimina una tarea
 ul.addEventListener('click', (e) => {
     if(e.target.matches('img')){
-        console.log('Se ha clicado la imagen: ', e.target);
         let li = e.target.parentElement;
-        console.log('Id del dataset de la tarea:', li.dataset.id);
+        console.log('Dataset-id de la tarea eliminada:', li.dataset.id);
         tareas.splice(li.dataset.id, 1);
         guardarTareas();
         console.log('Tareas: ', tareas);
         li.remove();
+
+        //***Hay que reasignar el dataset de todos los li
+        const lis = document.querySelectorAll('li');
+        
+        for (const lista of lis){
+            console.log('Lista de lis: ', lista.dataset.id);
+        }
+        //***Hasta aqui es codigo de prueba
     }
 });
 
@@ -63,6 +68,9 @@ function crearTarea(){
     checkbox.type = 'checkbox';
     const img = document.createElement('img');
     img.src = 'trash.svg'
+
+    //Agregar un dataset parar el control de eliminaciones de cada tarea
+    li.dataset.id = tareas.length;
 
     //Agregar elementos al DOM si el input no esta vacio.
     if(texto.value){
@@ -119,16 +127,3 @@ function cargarTareas(){
     }
 }
 
-function recolectarBotones(){
-    return document.querySelectorAll('img');
-}
-
-//TODO: Modificar array y localstorage para que guarden la nueva lista de tareas
-//Solucionar problema que hace que la variable indice continue incrementando en vez de reasignarse su nuevo valor en funcion de la imagen.
-
-eliminar.forEach((imagen, indice) => {
-    imagen.addEventListener('click', () => {
-
-        tareas.splice(indice, 1);
-    });
-});
