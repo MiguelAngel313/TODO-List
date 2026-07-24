@@ -20,18 +20,27 @@ document.addEventListener('keydown', (event) => {
     }
 });
 
-//Evento para controlar si se marca una tarea del DOM
+//Evento para controlar si se marca una tarea del DOM y asignar un estado
 ul.addEventListener('change', (e) => {
     if(e.target.matches('input[type="checkbox"]')){
         const p = e.target.parentElement.querySelector('p');
+        
+        let li = e.target.parentElement;
+        let indice = li.dataset.id;
+        console.log('Indice de tarea tachada: ', indice);
 
+        
         if(e.target.checked){   
             p.style.textDecoration = 'line-through';
             console.log('Elemento tachado: ', p.textContent);
+            tareas[indice].estado = true;
         }
         else{
             p.style.textDecoration = 'none';
+            tareas[indice].estado = false;
         }
+        console.log('Estado de tareas: ', tareas);
+        guardarTareas();
     }
 });
 
@@ -97,7 +106,7 @@ function recuperarTareas(){
     return datosGuardados ? JSON.parse(datosGuardados) : [];
 }
 
-
+//Funcion para agregar las tareas al DOM
 function cargarTareas(){
     tareas.forEach((tarea, indice) => {
     //Crerar los elementos para el DOM
@@ -107,6 +116,11 @@ function cargarTareas(){
         let p = document.createElement('p');
         let img = document.createElement('img');
         img.src = 'trash.svg'
+
+        if(tarea.estado == true){
+            checkbox.checked = true;
+            p.style.textDecoration = 'line-through';
+        }
 
     //Agregar un dataset a cada li
         li.dataset.id = indice;
@@ -119,3 +133,4 @@ function cargarTareas(){
         li.appendChild(img);
     });
 }
+
