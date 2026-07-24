@@ -35,7 +35,6 @@ ul.addEventListener('change', (e) => {
     }
 });
 
-//!!!Modificar el dataset para que al eleminiar una tarea se modifique este tambien y concuerde con la longitud del array
 
 //Evento para controlar si se elimina una tarea
 ul.addEventListener('click', (e) => {
@@ -46,14 +45,8 @@ ul.addEventListener('click', (e) => {
         guardarTareas();
         console.log('Tareas: ', tareas);
         li.remove();
-
-        //***Hay que reasignar el dataset de todos los li
-        const lis = document.querySelectorAll('li');
-        
-        for (const lista of lis){
-            console.log('Lista de lis: ', lista.dataset.id);
-        }
-        //***Hasta aqui es codigo de prueba
+        ul.innerHTML = '';
+        cargarTareas();
     }
 });
 
@@ -104,26 +97,25 @@ function recuperarTareas(){
     return datosGuardados ? JSON.parse(datosGuardados) : [];
 }
 
-function cargarTareas(){
 
-    for (const tarea of tareas) {
+function cargarTareas(){
+    tareas.forEach((tarea, indice) => {
     //Crerar los elementos para el DOM
-    let li = document.createElement('li');
-    let checkbox = document.createElement('input');
-    checkbox.type = 'checkbox';
-    let p = document.createElement('p');
-    let img = document.createElement('img');
-    img.src = 'trash.svg'
+        let li = document.createElement('li');
+        let checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        let p = document.createElement('p');
+        let img = document.createElement('img');
+        img.src = 'trash.svg'
 
     //Agregar un dataset a cada li
-    li.dataset.id = tarea.id;
+        li.dataset.id = indice;
 
     //Agregar los elementos al DOM para mostrarlos
-    p.textContent = tarea.parrafo;
-    ul.appendChild(li);
-    li.appendChild(checkbox);
-    li.appendChild(p);
-    li.appendChild(img);
-    }
+        p.textContent = tarea.parrafo;
+        ul.appendChild(li);
+        li.appendChild(checkbox);
+        li.appendChild(p);
+        li.appendChild(img);
+    });
 }
-
