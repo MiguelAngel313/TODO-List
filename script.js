@@ -117,7 +117,7 @@ function cargarTareas(){
         let img = document.createElement('img');
         img.src = 'trash.svg'
 
-        if(tarea.estado == true){
+        if(tarea.estado === true){
             checkbox.checked = true;
             p.style.textDecoration = 'line-through';
         }
