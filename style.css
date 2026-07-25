@@ -1,3 +1,9 @@
+:root{
+    --clr-letra: hsl(0, 0%, 18%);
+    --clr-acento: hsl(359, 74%, 59%);
+    --clr-ul: hsl(0, 0%, 92%);
+}
+
 *{
     box-sizing: border-box;
 }
@@ -5,7 +11,7 @@
 body{
     margin: 0 auto;
     min-width: 100vw;
-    background-color: #f5f5f5;
+    background-color: hsl(214, 13%, 76%);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -16,57 +22,92 @@ body{
 }
 
 
+h1{
+    font-size: clamp(15px, 6vw, 200px);
+    color: var(--clr-letra);
+}
 
 div{
-    background: hsl(225, 23%, 22%);
-    width: 50vw;
-    border-radius: 1vw;
+    width: 90%;
+    border-radius: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 1vw;
-    overflow: visible;
+    padding: 10px;
 }
 
 #agregar{
     display: flex;
     position: relative;
-    width: 70%;
+    width: 85%;
 }
 
 #agregar input{
-    background: hsla(0, 0%, 27%, 0.2);
+    background: var(--clr-ul);
     position: absolute;
     border-radius: 10px;
     width: 100%;
-    color: aliceblue;
+    color: var(--clr-letra);
+    border: none;
+    padding: 3px;
 }
 
 #agregar button{
     z-index: 2;
     position: absolute;
-    right: 0;
-    border-radius: 10px;
+    right: -1px;
+
+    border-radius: 30px;
     border: none;
+    
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-weight: 600;
+    font-size: clamp(10px, 4vw + 0.1vh, 100px);
+    
+    width: 60px;
+    padding: 2px;
+
+    background: var(--clr-acento);
+    color: var(--clr-ul);
 }
 
 ul{
+    display: flex;
+    flex-direction: column;
     width: 100%;
     list-style: none;
-    justify-content: flex-start;
-    align-items: flex-start;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background: var(--clr-ul);
+    border-radius: 10px;
+    box-shadow: 2px 2px 4px gray;
 }
 
 li{
+    width: 90%;
     display: grid;
     grid-template-columns: 20px 1fr 16px;
     grid-template-rows: 40px;
     justify-content: flex-start;
     align-items: center;
     gap: 5px;
+    background: hsl(200, 6%, 80%);
+    padding-left: 5px;
+    padding-right: 5px;
+    border-radius: 50px;
+}
+
+li p{
+    justify-self: center;
+    color: var(--clr-letra);
+    font-weight: 700;
+    font-size: clamp(10px, 3vw + 0.1vh, 100px);
 }
 
 img:hover{
@@ -76,6 +117,19 @@ img:hover{
 
 p{
     white-space: normal;
+}
+
+input[type="checkbox"]{
+    appearance: none;
+    accent-color: var(--clr-acento);
+    border-radius: 50%;
+    border: 2px solid var(--clr-acento);
+    width: 16px;
+    height: 16px;
+}
+
+input[type="checkbox"]:checked {
+    background-color: var(--clr-acento);
 }
 
 input[type="checkbox"]:hover{
