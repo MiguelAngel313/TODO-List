@@ -24,6 +24,7 @@ body{
 
 h1{
     font-size: clamp(15px, 6vw, 200px);
+    font-weight: 900;
     color: var(--clr-letra);
 }
 
@@ -45,8 +46,10 @@ div{
 
 #agregar input{
     background: var(--clr-ul);
+    font-size: clamp(10px, 3vw + 0.3vh, 100px);
+    font-weight: 600;
     position: absolute;
-    border-radius: 10px;
+    border-radius: 20px;
     width: 100%;
     color: var(--clr-letra);
     border: none;
@@ -65,8 +68,7 @@ div{
     font-weight: 600;
     font-size: clamp(10px, 4vw + 0.1vh, 100px);
     
-    width: 60px;
-    padding: 2px;
+    width: 55px;
 
     background: var(--clr-acento);
     color: var(--clr-ul);
@@ -79,7 +81,7 @@ ul{
     list-style: none;
     justify-content: center;
     align-items: center;
-    gap: 5px;
+    gap: 10px;
     padding-left: 10px;
     padding-right: 10px;
     padding-top: 20px;
@@ -106,8 +108,8 @@ li{
 li p{
     justify-self: center;
     color: var(--clr-letra);
-    font-weight: 700;
-    font-size: clamp(10px, 3vw + 0.1vh, 100px);
+    font-weight: 800;
+    font-size: clamp(10px, 3vw + 0.2vh, 100px);
 }
 
 img:hover{
@@ -137,4 +139,28 @@ input[type="checkbox"]:hover{
     transform: scale(1.1);
 }
 
-/*Agregar media queries para hacer la pagina responsive*/
+
+@media (min-width: 743px) and (max-width: 1023px){
+    
+    h1{
+        font-weight: 700;
+    }
+    
+    .container{
+        gap: 30px;
+    }
+    
+    #agregar input{
+        font-weight: 500;
+    }
+    
+    #agregar button{
+        width: 10vw;
+    }
+    
+    li p{
+        font-weight: 650;
+    }
+}
+
+/*Agregar media querie para hacer la pagina responsive en portatil y pc*/
